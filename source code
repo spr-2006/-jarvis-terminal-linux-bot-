@@ -1,0 +1,58 @@
+import os, subprocess, datetime, webbrowser, requests, socket, json
+import urllib.parse, random
+
+print("🧠 JARVIS v5.0 ULTIMATE - Cybersecurity & AI Edition")
+print("Commands: time, nmap [ip], whois [domain], wifi, wiki [topic], yt, calc [expr], clear, news, hacktools, sysinfo, exit")
+
+def banner():
+    print("\n" + "="*60)
+    print("⚡ JARVIS ACTIVE | Ethical Hacking Mode | Kali Linux Optimized")
+    print("="*60 + "\n")
+
+def nmap_scan(target):
+    print(f"🔍 NMAP SCAN: {target}")
+    subprocess.run(["nmap", "-sV", "-sC", target])
+
+def whois_domain(domain):
+    print(f"🔎 WHOIS: {domain}")
+    subprocess.run(["whois", domain])
+
+def sys_info():
+    hostname = socket.gethostname()
+    ip = socket.gethostbyname(hostname)
+    print(f"💻 SYSTEM INFO:")
+    print(f"Hostname: {hostname}")
+    print(f"Local IP: {ip}")
+    print(f"OS: Kali Linux")
+    print(f"Time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+
+def hack_tools():
+    print("🛠️  CYBER TOOLS:")
+    print("- nmap 192.168.1.1")
+    print("- whois hackthebox.com") 
+    print("- wifi")
+    print("- netstat -tuln")
+    print("- hydra -h")
+
+banner()
+sys_info()
+
+while True:
+    cmd = input("⚡ JARVIS> ").lower().strip()
+    
+    if cmd == "time": print("⏰", datetime.datetime.now().strftime("%H:%M:%S"))
+    elif cmd == "date": print("📅", datetime.datetime.now().strftime("%Y-%m-%d"))
+    elif cmd == "sysinfo": sys_info()
+    elif cmd == "ip": print("🌐 IP:", socket.gethostbyname(socket.gethostname()))
+    elif cmd.startswith("nmap "): nmap_scan(cmd[5:])
+    elif cmd.startswith("whois "): whois_domain(cmd[6:])
+    elif cmd == "wifi": subprocess.run(["nmcli", "dev", "wifi", "list"])
+    elif cmd.startswith("wiki "): webbrowser.open(f"https://en.wikipedia.org/wiki/{urllib.parse.quote(cmd[5:])}")
+    elif cmd == "yt": webbrowser.open("https://youtube.com"); print("📺 YouTube opened")
+    elif cmd.startswith("calc "): try: print("🧮", eval(cmd[5:])); except: print("❌ Math error")
+    elif cmd == "clear": os.system("clear"); banner()
+    elif cmd == "news": webbrowser.open("https://news.ycombinator.com"); print("📰 Hacker News")
+    elif cmd == "hacktools": hack_tools()
+    elif cmd == "netstat": subprocess.run(["netstat", "-tuln"])
+    elif cmd == "exit": print("👋 JARVIS offline. Stay secure!"); break
+    else: print("❓ Try: nmap 8.8.8.8, whois google.com, wifi, wiki metasploit, calc 25*4")
